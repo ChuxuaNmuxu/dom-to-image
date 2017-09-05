@@ -476,6 +476,7 @@
                 request.responseType = 'blob';
                 request.timeout = TIMEOUT;
                 request.open('GET', url, true);
+                request.setRequestHeader('cache-control','no-cache'); // 解决图片缓存导致的跨域问题
                 request.send();
 
                 var placeholder;
