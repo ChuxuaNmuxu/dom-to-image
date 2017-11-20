@@ -299,7 +299,7 @@
                 clone.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
                 
                 if (clone instanceof SVGLineElement) {
-                    ['marker-start', 'marker-end'].forEach(function (attribute) {
+                    ['marker-start', 'marker-mid', 'marker-end'].forEach(function (attribute) {
                         var value = clone.getAttribute(attribute);
                         if (!value) return;
                         clone.style.removeProperty('marker');
