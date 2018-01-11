@@ -306,6 +306,26 @@
                         clone.style.setProperty(attribute, value);
                     })
                 }
+
+                if (clone instanceof SVGImageElement) {
+                    var src = clone.href.baseVal;
+    
+                    if (util.isDataUrl(src)) return;
+    
+                    return util.getAndEncode(src)
+                        .then(function (data) {
+                            return util.dataAsUrl(data, util.mimeType(src));
+                        })
+                        .then(function (dataUrl) {
+                            return new Promise(function (resolve, reject) {
+                                clone.onload = resolve;
+                                clone.onerror = reject;
+                                clone.href.baseVal = dataUrl;
+                                clone.style.removeProperty('width');
+                                clone.style.removeProperty('height');
+                            });
+                        });
+                }
                 
                 if (!(clone instanceof SVGRectElement)) return;
                 ['width', 'height'].forEach(function (attribute) {
